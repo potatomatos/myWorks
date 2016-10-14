@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模拟手机</title>
+
+	<style type="text/css">
+	body,ul,p{ margin: 0;padding: 0; }
+	li{list-style: none;}
+	.wrap{
+		width: 289px;height: 594px;margin: 0 auto; background: url(img/bg1.gif) no-repeat;padding: 86px 26px 0;
+	}
+	.screen{width: 238px;height:422px;}
+    .clearfix:after{content: "";clear: both;display: block;}
+	.screen #text{ width: 218px;height: 352px; overflow:auto; padding:10px;}
+
+	.screen .menu{ height:40px;padding: 5px;border: solid 1px gray;}
+	.screen .menu li{float: left;height: 40px;margin-left: 5px;}
+	.screen .menu #talk{width:160px;height: 35px;border-radius: 10px;font-size: 16px; color: #a0a0a4;font-weight: bold;}
+	.screen .menu #send{line-height: 45px;color: #a0a0a4; font-weight: bold;cursor:pointer;}
+    .screen .menu #send:active{color: #66FFCC;cursor:default;}
+
+	.left{width: 150px; float: left; padding: 5px;margin-top: 10px;}
+    .left div:nth-of-type(1){float: left}
+    .left div:nth-of-type(1) img{width: 30px;height: 30px;}
+    .left div:nth-of-type(2){max-width: 100px;border-radius: 10px;background:#ffff00; text-align: left;float: left;padding: 5px;margin-left: 10px;word-wrap: break-word;word-break: normal; }
+
+    .right{width: 150px; float: right; padding: 5px;margin-top: 10px;}
+    .right div:nth-of-type(1){float: right }
+    .right div:nth-of-type(1) img{width: 30px;height: 30px;}
+    .right div:nth-of-type(2){max-width: 100px; border-radius: 10px;background:green; text-align: left;float: right;padding: 5px;margin-right: 10px;word-wrap: break-word;word-break: normal;}
+	</style>
+    <script src="js/ajax.js"></script>
+    <script src="js/jquery-3.0.0.js"></script>
+  <script type="text/javascript">
+        $(function () {
+            var oText=$('#text');
+            var oTall=$('#talk');
+            $('#send').click(function () {
+
+                var oDiv=null;
+                oDiv=$('<div class="right"><div><img src="img/face2.jpg"></div><div><p>'+oTall.val()+'</p></div></div>');
+                oText.prepend(oDiv);
+                ajax('get', 'getData.php', 'info='+oTall.val(), function (data) {
+
+                    var respondData = JSON.parse(data);
+                    if(respondData.length==0){//没数据了
+                        return;
+                    }
+
+                    switch (respondData.code){
+                        case 100000:
+                            oDiv=$(' <div class="left"><div><img src="img/face1.jpg"></div><div><p>'+respondData.text+'</p></div></div>');
+                            oText.prepend(oDiv);
+                            break;
+                        case 200000:
+                            oDiv=$(' <div class="left"><div><img src="img/face1.jpg"></div><div><p>'+respondData.text+'</p><br/><img src="'+respondData.url+'"/></div></div>');
+                            oText.prepend(oDiv);
+                            break;
+                    }
+
+
+
+
+                });
+                oTall.val('');
+            });
+        })
+  </script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="screen">
+			<div id="text" class="clearfix">
+
+            </div>
+			<ul id="menu" class="menu clearfix">
+				<li><input type="text" id="talk" /></li>
+				<li><span id="send">发送</span></li>
+			</ul>
+		</div>
+
+	</div>
+</body>
+</html>
