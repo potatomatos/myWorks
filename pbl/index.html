@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+     body,ul{padding: 0;margin: 0}
+     #content{width: 1030px;margin:100px auto;}
+     #content li{list-style:none;width: 247px;float: left;margin-right:10px; }
+     #content li div{border: 1px solid #000000;padding: 10px;margin-bottom: 10px;}
+     #content li div img{width: 225px;display: block}
+    </style>
+    <script src="js/ajax.js"></script>
+    <script src="js/JSON.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var aLi=document.getElementsByTagName('li');
+            var iLen=aLi.length;
+            var cpage=1;
+            var isLoaded=false;
+
+            loadImg();
+            function loadImg(){
+                ajax('get', 'getPics.php', 'cpage='+cpage, function (data) {
+                    var respondData = JSON.parse(data);
+                    if(respondData.length==0){//没数据了
+
+                        return;
+                    }
+                    for (var i = 0; i < respondData.length; i++) {
+                        var oDiv=document.createElement('div');
+                        var oImg=document.createElement('img');
+                        oImg.src=respondData[i].preview;
+                        //设置图片宽高
+                        oImg.style.width=225+'px';
+                        oImg.style.height=respondData[i].height*(225/respondData[i].width)+'px';
+                        var oP=document.createElement('p');
+                        oP.innerHTML=respondData[i].title;
+                        oDiv.appendChild(oImg);
+                        oDiv.appendChild(oP);
+                        var _index=getShortestLi();//获取到高度最小的li的索引
+                        aLi[_index].appendChild(oDiv);
+                    }
+                    isLoaded=true;//加载完成
+                });
+            }
+
+            window.onscroll=function(){
+                var _index=getShortestLi();
+                var oLi=aLi[_index];
+                var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+                //鼠标滚动的高度超过最短的li高度的时候加载下一页
+                if(getTop(oLi)+oLi.offsetHeight<document.documentElement.clientHeight+scrollTop){
+                    if(isLoaded){
+                        isLoaded=false;
+                        cpage++;
+                        document.title=cpage;
+                        loadImg();
+                    }
+
+                }
+
+            }
+
+            function getShortestLi(){//获取高度最短的li
+                var index=0;
+                var ih=aLi[index].offsetHeight;
+                for(var i=0;i<iLen;i++){
+                    if(ih>aLi[i].offsetHeight){
+                        ih=aLi[i].offsetHeight;
+                        index=i;
+                    }
+                }
+                return index;
+            }
+
+            function getTop(obj) {//获取li底部到页面顶部的高度
+                var iTop=0;
+                while(obj){
+                    iTop+=obj.offsetTop;
+                    obj=obj.offsetParent;
+                }
+                return iTop;
+            }
+        }
+    </script>
+</head>
+<body>
+<ul id="content">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+</body>
+</html>
