@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>时光轴效果</title>
+    <style type="text/css">
+        *{margin: 0;padding: 0}
+        body{background: url("images/bg.jpg") fixed;}
+        li{list-style: none}
+        #content{width: 900px;margin: 0 auto;height: 500px;}
+        /*头像样式开始*/
+        #content dl{width: 100px;height: 130px;background:#fff;margin-left: 200px;padding: 10px; }
+        #content dl dt{width: 100px;height: 100px;background: #fff3a5}
+        #content dl dd{width: 100px;height: 30px;line-height: 30px;text-align: center;font-size: 12px;}
+        /*头像样式结束*/
+
+        /*列表样式开始*/
+        #content .list{width: 600px;border-left:solid 3px #206e97;margin-left: 260px;padding-top: 10px;}
+        #content .list li{height: 400px;position: relative;margin-bottom: 10px;-webkit-animation:sc 2s;display: none/*添加动画*/ }
+        #content .list li .tag{height: 30px;width: 120px;position: absolute;top: 200px;left: -116px;}
+        #content .list li .tag strong{width: 90px;height: 30px;display: inline-block;background: #000;color: #fff;text-align: center;line-height: 30px;font-size: 12px;}
+        #content .list li .tag img{position: absolute;left: 87px;top: 6px;}
+        #content .list li .tag span{width:6px;height:6px;background:#99ff33;border:3px solid #fff;border-radius: 10px; position: absolute;right: 0;top: 8px;}
+        #content .list li .listCon{height: 400px;background: rgba(255,255,255,0.3);margin-left: 10px;border-radius: 10px;box-shadow: 0 0 10px #000}
+
+    /*定义css3动画*/
+        @-webkit-keyframes sc{
+            from{-webkit-transform:rotate(220deg) scale(0);}
+            to{-webkit-transform:rotate(0deg) scale(1);}
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var oContent = document.getElementById('content');
+            var aLi = oContent.getElementsByTagName('li');
+            for (var i = 0; i < aLi.length; i++) {
+                if (i < 3) {
+                    aLi[i].style.display = 'block';
+                }
+            }
+            window.onscroll= function () {
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                var topHeight=scrollTop+document.documentElement.clientHeight-200;
+                for (var i = 0; i < aLi.length; i++) {
+                  if(aLi[i].offsetTop<topHeight){
+                      aLi[i].style.display = 'block';
+                  }
+                }
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div id="content">
+  <!--头像开始-->
+   <dl>
+       <dt>
+           <img src="images/my.jpg" alt="头像">
+       </dt>
+       <dd>
+           我的作品
+       </dd>
+   </dl>
+    <!--头像结束-->
+
+    <!--列表内容区域开始-->
+    <div class="list">
+        <ul>
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+
+            <li>
+                <div class="tag">
+                    <strong>10月6日</strong>
+                    <img src="images/r.png" alt="右箭头">
+                    <span></span>
+                </div>
+
+                <div class="listCon"></div>
+            </li>
+        </ul>
+    </div>
+    <!--列表区域结束-->
+</div>
+</body>
+</html>
