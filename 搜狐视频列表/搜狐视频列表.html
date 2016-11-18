@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>搜狐视频列表</title>
+
+	<style type="text/css">
+	*{margin:0 ;padding: 0}
+	li{list-style: none;}
+	a{text-decoration: none;}
+	#wrap{width: 256px; height: 384px;margin:0 auto;background: #dde7e8;padding: 6px;border: 1px solid black}
+	.header{width: 256px;height: 28px; border-bottom: 1px solid #94bed6}
+	.header h2{float: left;}
+	.header ul{float: right; width: 109px; height: 26px; }
+	.header li{float: right;border: 1px solid #94bed6;width: 25px; height: 26px;margin-bottom: -1px;margin-left: -1px;}
+	.header li:hover{background: #fff;}
+	.header a{color: #175272;line-height: 26px;font-size: 12px;}
+	
+	.content{}
+	.content li{ border-bottom: dashed 1px #fff; }
+	.content li a{display: block;line-height: 27px;color: #393031;font-size: 12px;padding-left: 8px;}
+	.content div{float: left; height: 13px;width: 17px;background: url(img/bg_num.png);font-size: 11px;line-height: 13px; color: #fff;margin-right:12px;text-align: center;margin-top: 8px;}
+	
+	.content .select{ height: 80px;background: #fff; }
+
+	.content img{border: 1px solid #dde7e8;padding: 2px;width: 80px;height: 60px;margin-top: 7px;margin-right: 40px;}
+	.content #play{width: 41px;height: 21px;border: none;padding: 0}
+	</style>
+
+	<script type="text/javascript">
+		
+		window.onload=function(){
+
+			var oUL=document.getElementsByTagName('ul')[1];
+			var aLi=oUL.getElementsByTagName('li');
+
+			var byDay=document.getElementById('byDay');
+			var byWeek=document.getElementById('byWeek');
+			var byAll=document.getElementById('byAll');
+
+			var arrTitle1=['解密：关于地球和人类的一千零一问','经典传奇：探索全世界重大历史事件','眼界：展现普通人曲折命运和动人...','档案：惊人事件和传奇背...','世纪十最：30个震惊世界的top...','解密：关于地球和人类的一千零一问','经典传奇：探索全世界重大历史事件','眼界：展现普通人曲折命运和动人...','档案：惊人事件和传奇背...','世纪十最：30个震惊世界的top...'];
+			var arrTitle2=['每日排行','每日排行','每日排行','每日排行','每日排行','每日排行','每日排行','每日排行','每日排行','每日排行'];
+			var arrTitle3=['每周排行','每周排行','每周排行','每周排行','每周排行','每周排行','每周排行','每周排行','每周排行','每周排行'];
+			var arrUrl1=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg','img/8.jpg','img/9.jpg','img/10.jpg'];
+
+			var arrUrl2=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg','img/8.jpg','img/9.jpg','img/10.jpg'];
+			var arrUrl3=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg','img/8.jpg','img/9.jpg','img/10.jpg'];
+			var str='';
+			
+			tabs(arrTitle1,arrUrl1);
+
+			byAll.onclick=function(){
+				str='';
+				tabs(arrTitle1,arrUrl1);
+			};
+
+			byDay.onclick=function(){
+				str='';
+				tabs(arrTitle2,arrUrl2);
+			};
+
+			byWeek.onclick=function(){
+				str='';
+				tabs(arrTitle3,arrUrl3);
+			};
+			function tabs(title,Url){
+
+				for(var i=0;i<10;i++){//添加li
+					str+='<li><a href="#"><div>'+(i+1)+'</div>'+title[i]+'</a></li>';
+				}
+				oUL.innerHTML=str;
+				//初始化
+				aLi[0].innerHTML='<a href="#" class="select"><div>'+1+
+					'</div><img src="'+Url[0]+'" alt=""><img src="img/bg_play.png" alt="" id="play"></a>';
+				for(var i=0;i<aLi.length;i++){//给li添加事件
+				aLi[i].index=i;
+
+				aLi[i].onmouseover=function(){
+					for(var i=0;i<10;i++){//添加li
+						aLi[i].innerHTML='<a href="#"><div>'+(i+1)+'</div>'+title[i]+'</a>';
+						aLi[i].style.borderBottom='dashed 1px #fff';
+					}
+					this.innerHTML='<a href="#" class="select"><div>'+(this.index+1)+
+					'</div><img src="'+Url[this.index]+'" alt=""><img src="img/bg_play.png" alt="" id="play"></a>';
+
+					this.style.borderBottom='none';
+				}
+				
+				}
+			};
+			
+			
+		};
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<div class="header">
+			<h2>观看排行榜</h2>
+			<ul>
+			<li><a href="#" id='byDay'>每日</a></li>
+			<li><a href="#" id='byWeek'>每周</a></li>
+			<li><a href="#" id='byAll'>全部</a></li>
+			</ul>
+		</div>
+
+	 	<ul class="content">
+	 		
+		</ul>
+
+		
+	</div>
+</body>
+</html>

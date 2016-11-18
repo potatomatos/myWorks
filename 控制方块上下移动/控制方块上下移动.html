@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>控制方块上下移动</title>
+	<style type="text/css">
+		
+	</style>
+
+	<script type="text/javascript">
+		window.onload=function(){
+			var aDiv=document.getElementsByTagName('div');
+			var len=20;
+			var str = '';
+			
+			var t=0;//用来判断到没到target
+			for(var i=0;i<len;i++){
+				str+='<div style="width:50px; height:50px; background:red; position:absolute; top:0px; left:'+ i*60 +'px;"></div>';
+			}
+			document.body.innerHTML=str;
+
+			document.onclick=function(){
+				var num=0;
+				var timer=null;
+				if(t==0){
+					timer=setInterval(function(){
+					Move(aDiv[num],'top',25,500);
+					num++;
+					if(num==len){
+						clearInterval(timer);
+					}
+
+				},100);
+					
+					}else if(t==500){
+						timer=setInterval(function(){
+						Move(aDiv[num],'top',25,0);
+						num++;
+						if(num==len){
+							clearInterval(timer);
+					}
+
+				},100);
+						
+					}
+					
+					
+			}
+				
+
+
+
+		function Move(obj,attr,dir,target){
+			dir=parseInt(getStyle(obj,attr))<target?dir:-dir;
+
+			clearInterval(obj.timer);//清除定时器防止越点越快
+			obj.timer=setInterval(function(){
+				var speed=parseInt(getStyle(obj,attr))+dir;
+				t=speed;
+				if(speed>target&&dir>0||speed<target&&dir<0){
+					speed=target;
+				}
+				obj.style[attr] = speed + 'px';
+				if(speed==target){
+					clearInterval(obj.timer);
+				}
+			},50);
+
+
+		}
+		function getStyle(obj,attr){
+			 return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]; 
+		}
+		};
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

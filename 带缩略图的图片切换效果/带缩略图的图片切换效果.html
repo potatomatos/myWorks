@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>切换图片</title>
+</head>
+<style type="text/css">
+	body{padding: 0;margin: 0;background: url(img/bg.jpg) no-repeat;}
+	ul{padding: 0; margin: 0; }
+	li{ list-style: none; }
+	a{ text-decoration: none; }
+	#wrap{ width:680px;height: 432px ;border: 1px solid gray;padding:0 15px 0; margin: 20px auto; position: relative; text-align: center;}
+	#wrap img{ width: 680px;height: 382px;border-radius: 5px; margin: 0;}
+	#wrap a{display: block; height: 50px;width: 50px; background: #fff;color: #000;z-index: 2; text-align: center;line-height: 50px;font-size: 30px; border: 2px solid black;filter: alpha(opacity:40);opacity:0.4;}
+	#wrap a:hover{alpha(opacity:80);opacity:0.8;}
+	#wrap #prev{position: absolute;top: 166px;left: 40px;}
+	#wrap #next{position: absolute;top: 166px;right: 40px;}
+	#wrap ul{width:680px;height: 20px;margin: 20px auto; border: 1px solid red;text-align: center;}
+	#wrap li{width: 20px;height: 20px;float: left; line-height: 20px;margin-left:10px;background:gray;position: relative; }
+
+	#wrap ul img{ width: 136px; height: 76px;position: absolute;top:-80px; left: -10px; display: none;}
+	#wrap .active{background:#000;}
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('wrap');
+		var oImg=document.getElementById('img1');
+		var oPrev=document.getElementById('prev');
+		var oNext=document.getElementById('next');
+		var UrlArr=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg'];
+		var aUl=oDiv.getElementsByTagName('ul')[0];
+		var aLi=aUl.getElementsByTagName('li');
+		var aImg=aUl.getElementsByTagName('img');//获取li里的图片;
+		var num=0;
+
+		for(var i=0;i<UrlArr.length;i++){
+			aUl.innerHTML+='<li></li>'
+		}
+		for(var i=0;i<aLi.length;i++){
+			aLi[0].className='active';
+			aLi[i].index=i;//给li加索引值
+			aLi[i].innerHTML='<img alt="" />';
+
+			aImg[i].src=UrlArr[i];//给li里的img加图片
+
+			aLi[i].onclick=function(){
+				num=this.index;
+				oImg.src=UrlArr[num];
+				for(var j=0;j<aLi.length;j++){
+					aLi[j].className='';
+				}
+				this.className='active';
+			}
+			aLi[i].onmouseover=function(){
+				aImg[this.index].style.display='block';
+			}
+			aLi[i].onmouseout=function(){
+				aImg[this.index].style.display='none';
+			}
+
+
+		}
+		Tab();
+		function Tab(){//切换图片
+			oImg.src=UrlArr[num];
+			//同步缩略图背景
+			for(var j=0;j<aLi.length;j++){
+					aLi[j].className='';
+				}
+			aLi[num].className='active';
+		}
+		oPrev.onclick=function(){//上一张图片
+			num--;
+			if(num==-1){
+				num=UrlArr.length-1;
+			}
+			Tab();
+			
+		}
+		oNext.onclick=function(){//下一张图片
+			num++;
+			if(num==UrlArr.length){
+				num=0;
+			}
+			Tab();
+		}
+
+	};
+
+</script>
+<body>
+	<div id="wrap">
+		<img alt="" id="img1">
+		<a href="javascript:;" id="prev"> < </a>
+		<a href="javascript:;" id="next"> > </a>
+		<ul>
+			<!--<li><img src="img/1.jpg" alt=""></li>-->
+			
+
+		</ul>
+	</div>
+</body>
+</html>

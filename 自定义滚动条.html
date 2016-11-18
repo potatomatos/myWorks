@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #scroll_bar{width:400px;height: 30px;border: 1px solid #000;margin: 0 auto;position: relative}
+        #scroll_bar div{width: 30px;height: 30px;background: #ff0000;position: absolute}
+
+        #text{width: 300px;height: 200px;border: 1px solid #000000;margin: 50px auto;position: relative;overflow: hidden}
+        #text div{position: absolute}
+    </style>
+
+    <script type="text/javascript">
+        window.onload= function () {
+            var oScrollBar=document.getElementById('scroll_bar');
+            var oItem=oScrollBar.getElementsByTagName('div')[0];
+
+            var oText=document.getElementById('text');
+            var oTxtContent=oText.getElementsByTagName('div')[0];
+            
+            oItem.onmousedown= function (ev) {
+                var oEvent=ev||event;
+                var disX=oEvent.clientX-this.offsetLeft;
+                document.onmousemove= function (ev) {
+                    var oEvent=ev||event;
+                    var l=oEvent.clientX-disX;
+
+                    if(l<0){
+                        l=0
+                    }else if(l>oScrollBar.offsetWidth-oItem.offsetWidth){
+                        l=oScrollBar.offsetWidth-oItem.offsetWidth;
+                    }
+                    oItem.style.left=l+'px';
+                   var scale=l/(oScrollBar.offsetWidth-oItem.offsetWidth);
+
+                    oTxtContent.style.top=-scale*(oTxtContent.offsetHeight-oText.offsetHeight)+'px';
+
+                }
+                
+                document.onmouseup= function () {
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                }
+                return false;
+            }
+            
+            
+        }
+    </script>
+</head>
+<body>
+<div id="scroll_bar">
+    <div></div>
+</div>
+
+<div id="text">
+    <div><p>
+        静夜思
+       床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。 静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。 静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。 静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+        静夜思
+        床前明月光，疑是地上霜。举头望明月，低头思故乡。
+
+        九月九日忆山东兄弟
+        独在异乡为异客，每逢佳节倍思亲。
+        遥知兄弟登高处，遍插茱萸少一人。
+
+
+
+
+
+
+    </p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+#div1{width: 100px;height: 100px;background: blue;position: absolute;z-index: 2}
+#div2{width: 100px;height: 100px;background: red;position: absolute;left: 500px;top: 100px;z-index: 1}
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var oDiv1 = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+
+            doDrag(oDiv1);
+
+            //拖拽函数
+            function doDrag(obj) {
+                obj.onmousedown = function (ev) {
+                    var ev = ev || event;
+                    var disX = ev.clientX - obj.offsetLeft;
+                    var disY = ev.clientY - obj.offsetTop;
+                    document.onmousemove = function (ev) {
+                        var ev = ev || event;
+                        obj.style.left=ev.clientX -disX+'px';
+                        obj.style.top = ev.clientY -disY+'px';
+
+                        if(isImpact(obj,oDiv2)){
+                            oDiv2.style.background='green';
+                        }else{
+                            oDiv2.style.background='red';
+                        }
+
+                    }
+                    document.onmouseup= function () {
+                        document.onmousemove=null;
+                        document.onmouseup=null;
+                    }
+                }
+            }
+
+            function isImpact(obj1,obj2) {
+                var l1=obj1.offsetLeft;
+                var r1=obj1.offsetLeft+obj1.offsetWidth;
+                var t1=obj1.offsetTop;
+                var b1=obj1.offsetTop+obj1.offsetHeight;
+
+                var l2=obj2.offsetLeft;
+                var r2=obj2.offsetLeft+obj2.offsetWidth;
+                var t2=obj2.offsetTop;
+                var b2=obj2.offsetTop+obj2.offsetHeight;
+
+                //没碰撞上的情况
+                if(r1<l2 || l1>r2 || b1<t2 || t1>b2)
+                {
+                    return false;
+                }
+                else
+                {
+                    //碰撞上了
+                    return true
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1">div1</div>
+<div id="div2">div2</div>
+</body>
+</html>

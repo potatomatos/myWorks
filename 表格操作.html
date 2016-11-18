@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body, p {
+            margin: 0;
+            padding: 0
+        }
+
+        table, tr, td {
+            border: 1px solid #000000;
+            margin: 0;
+            padding: 0
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var oTable = document.getElementById('myTable');
+            var oTxt1 = document.getElementById('txt1');
+            var oAddBtn = document.getElementById('addBtn');
+
+            var oTxt2 = document.getElementById('txt2');
+            var oSearchBtn = document.getElementById('searchBtn');
+
+            var oldColor = '';//记录之前的背景色
+            var iNowId = oTable.tBodies[0].rows.length + 1;//当前的行号
+            
+            ChangeColor();
+            function ChangeColor() {
+                for (var i = 0; i < oTable.tBodies[0].rows.length; i++) {//隔行变色
+                    oTable.tBodies[0].rows[i].index = i;
+                    if (i % 2 == 0) {
+                        oTable.tBodies[0].rows[i].style.background = '#CCC';
+                    } else {
+                        oTable.tBodies[0].rows[i].style.background = '#fff';
+                    }
+                }
+            }
+            heightLight();
+            function heightLight() {
+                for (var i = 0; i < oTable.tBodies[0].rows.length; i++) {//选中高亮
+                    oTable.tBodies[0].rows[i].onmouseover = function () {
+                        oldColor = this.style.background;
+                        this.style.background = 'yellow';
+                    }
+                    oTable.tBodies[0].rows[i].onmouseout = function () {
+                        this.style.background = oldColor;
+                    }
+                }
+            }
+
+
+
+            oAddBtn.onclick = function () {//点击添加按钮添加一行
+                var oTr = document.createElement('tr');//创建一行
+                var oTd = null;
+
+                oTd = document.createElement('td');//创建列,ID
+                oTd.innerHTML = iNowId++;
+                oTr.appendChild(oTd);
+
+                oTd = document.createElement('td');//创建列,用户名
+                oTd.innerHTML = oTxt1.value;
+                oTr.appendChild(oTd);
+
+                oTd = document.createElement('td');//创建列,操作
+                oTd.innerHTML = '<a href="javascript:">删除</a>';
+                var oA = oTd.getElementsByTagName('a')[0];
+                oA.onclick = function () {
+                    oTable.tBodies[0].removeChild(this.parentNode.parentNode);
+                    ChangeColor();
+                }
+                oTr.appendChild(oTd);
+                oTable.tBodies[0].appendChild(oTr);
+                ChangeColor();//重新隔行变色
+                heightLight();//选中高亮
+            }
+
+            oSearchBtn.onclick = function () {//点击搜索按钮搜索行
+                ChangeColor();//先还原隔行变色
+                for (var i = 0; i < oTable.tBodies[0].rows.length; i++) {
+                    var sValueInTab = oTable.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                    var sValueInTxt = oTxt2.value.toLowerCase();
+                    if (sValueInTab == sValueInTxt) {
+                        oTable.tBodies[0].rows[i].style.background = 'red';
+                    }
+                }
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<p><input type="text" id="txt1"/><input type="button" value="添加" id="addBtn"/></p><br/>
+
+<p><input type="text" id="txt2"/><input type="button" id="searchBtn" value="搜索"/></p>
+<table width="600" id="myTable">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>用户名</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>张三</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>李四</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>王五</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>刘六</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>小张</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>小李</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>小明</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>大黄狗</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

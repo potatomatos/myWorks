@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>淘宝商品广告</title>
+<style type="text/css">
+	body,ul{ margin:0; padding:0;}
+	li{ list-style:none;}
+	a{ text-decoration:none;color:#000;}
+	#box{ width:710px; height:330px; padding:5px; border:1px solid #F69; margin:0 auto;}
+	#box ul{ width:100px;}
+	#box li{width:100px; height:25px; border:1px solid #F99; margin-bottom:2px; text-align:center; line-height:50px; background:#FAD6F7;}
+	#box #pic{ float:left; width:500px; height:330px; margin:0 5px;}
+	#box #list1{ float:left;}
+	#box #list2{float:left;}
+	#box .hover{ background:#F33}
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aList1=document.getElementById('list1');
+		var aLi1=aList1.getElementsByTagName('li');
+		var aList2=document.getElementById('list2');
+		var aLi2=aList2.getElementsByTagName('li');
+		var aImg=document.getElementById('pic');
+		
+		var aLi=oBox.getElementsByTagName('li');
+		var aLiArr=[];
+		var UrlArr=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg','img/8.jpg','img/9.jpg','img/10.jpg','img/11.jpg','img/12.jpg'];
+		var TxtArr=['黑莓9000','黑莓7573','黑莓8825','黑莓9300','黑莓9900','黑莓8830','黑莓9700','黑莓6633','黑莓7100','诺基亚E63','诺基亚5230','诺基亚N97'];
+		
+		var num=0;
+		var timer=null;
+		for(var i=0;i<UrlArr.length;i++){
+			if(i<UrlArr.length/2){
+				aList1.innerHTML+='<li><a href="#">'+TxtArr[i]+'</a></li>'
+				}else{
+				aList2.innerHTML+='<li><a href="#">'+TxtArr[i]+'</a></li>'
+					}
+			}
+			
+			//将两个ul里的li按照一定顺序放到数组中去
+		for(var i=0;i<aLi1.length;i++){
+				aLiArr.push(aList1.getElementsByTagName('li')[i]);
+				}
+		for(var i=aLi2.length-1;i>=0;i--){
+			aLiArr.push(aList2.getElementsByTagName('li')[i]);
+			}
+		
+
+		for(var i=0;i<aLiArr.length;i++){//设置每个li的高度及事件
+			aLiArr[i].index=i;//添加索引
+			aLiArr[i].style.height=330/aLiArr.length*2-4+'px'
+			
+			aLiArr[i].onmouseover=function(){
+				for(var i=0;i<aLiArr.length;i++){
+				aLiArr[i].className='';//清除之前样式
+				}
+				this.className='hover';
+				num=this.index;
+				aImg.src=UrlArr[num];
+				clearTimeout(timer);
+				}
+			aLiArr[i].onmouseout=function(){
+				this.className='';
+				clearTimeout(timer);
+				autoTabImg();
+				}
+			
+			}
+		aImg.onmouseover=function(){
+			clearTimeout(timer);
+		}
+		aImg.onmouseout=function(){
+			clearTimeout(timer);
+			autoTabImg();
+		}
+		tabImg();//初始化
+		autoTabImg();
+		function autoTabImg(){//自动切换图片
+			timer =setInterval(function(){
+			tabImg();
+			},2000);
+			}
+		
+		function tabImg(){//切换图片
+			aImg.src=UrlArr[num];
+			for(var i=0;i<aLiArr.length;i++){
+				aLiArr[i].className='';//清除之前样式
+				}
+			aLiArr[num].className='hover';
+			num++;
+			num%=UrlArr.length;
+			}
+		};//这里是结束
+
+</script>
+</head>
+<div id="box">
+	<ul id="list1">
+    	
+    </ul>
+    <a href="#"><img id="pic"/></a>
+    <ul id="list2">
+   
+    </ul>
+</div>
+<body>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #nav {
+            height: 32px;
+            border: 1px solid #000000;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            float: left
+        }
+
+        #nav li {
+            list-style: none;
+            width: 80px;
+            height: 32px;
+            background: #CCCCCC;
+            float: left;
+            margin-left: 5px;
+            line-height: 32px;
+            text-align: center;
+
+        }
+        #nav li a{display:block;text-decoration: none;position: relative;z-index: 2}
+
+        #nav li:nth-of-type(1) {
+            margin-left: 0;
+        }
+
+        #nav .bg {
+            width: 76px;
+            height: 28px;
+            position: absolute;
+            background: none;
+            border: 2px solid #ff0000;
+            margin-left: 0;
+            z-index: 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var aLi = document.getElementsByTagName('li');
+            var ispeed = 0;
+            var iLeft = 0;
+            for (var i = 0; i < aLi.length-1; i++) {
+                aLi[i].onmouseover = function () {
+                    doMove(aLi[aLi.length-1],this.offsetLeft);
+                }
+            }
+
+            function doMove(obj, target) {
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function () {
+                    ispeed += (target - obj.offsetLeft) / 5;
+                    ispeed *= 0.6;
+
+                    iLeft += ispeed;
+                    if (Math.abs(ispeed) < 1 && Math.abs(target - iLeft) < 1) {//速度足够小，距离足够小
+                        obj.style.left = target + 'px';
+                        clearInterval(obj.timer);
+                    } else {
+                        obj.style.left = iLeft + 'px';
+                    }
+                }, 30);
+
+            }
+        }
+    </script>
+</head>
+
+<body>
+<ul id="nav">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">说说</a></li>
+    <li><a href="#">文章</a></li>
+    <li><a href="#">相册</a></li>
+    <li><a href="#">留言板</a></li>
+    <li><a href="#">关于我们</a></li>
+    <li class="bg"></li>
+</ul>
+</body>
+</html>

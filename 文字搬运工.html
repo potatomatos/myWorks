@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文字搬运工</title>
+	<style type="text/css">
+	body,ul{ margin: 0;padding: 0; }
+	li{list-style: none;}
+	.box{ width: 750px;height: 220px;border: 10px solid gray;margin: 0 auto; padding: 5px; }
+	.box #left{ width: 300px; height: 200px;border:dotted 1px gray; float: left ;font-size: 18px;}
+	.box #right{ width: 300px; height: 200px;border:dotted 1px gray; float: right; font-size: 18px;overflow: auto;}
+	.box #mid{width: 115px; float: left; margin-left: 14px; text-align: center;}
+	.box #btn{ width: 115px;height: 38px; background:#ff9a00 ; color: #fff;font-size: 25px;line-height: 35px;text-align: center; cursor:pointer}
+	#btn:hover{alpha(opacity:50);opacity:0.5;}
+
+	.box ul{ width: 115px; display: none;transition: 2s;}
+	.box li{ width: 10px;height: 10px;border: 1px #ff9a00; background: yellow; float: left;margin-left: 1px; }
+	.box .active{ background: red; }
+	</style>
+
+	<script type="text/javascript">
+		window.onload=function(){
+			
+			var oBtn=document.getElementById('btn');
+			var oTxt=document.getElementById('left');
+			var oDiv=document.getElementById('right');
+			var oCount=document.getElementsByTagName('strong')[0];
+			var oNowCount=document.getElementsByTagName('span')[0];
+			var aUl=document.getElementsByTagName('ul')[0];
+			var aLi=document.getElementsByTagName('li');
+			var aText='';//存放文本框
+			var timer=null;
+			var len;
+			var num=0;
+			var onOff=true;
+			oBtn.onclick=doMoveTxt;
+
+			function doMoveTxt(){
+				clearInterval(timer);
+				num=0;
+				
+				if(oTxt.value!=''){
+					onOff=true;
+					aUl.style.display='block'
+					timer=setInterval(moveTxt,30);
+				}else{
+					alert('请输入内容！');
+				}
+				
+						
+
+			}
+
+			function moveTxt(){
+				
+				aText=oTxt.value;
+				var txtArr=aText.split('');//将左边的字符串变为数组
+				if(onOff){
+					oCount.innerHTML=txtArr.length;
+					onOff=false;
+				}
+				aText=aText.substring(1);
+				oTxt.value=aText;
+
+				len=aText.length;
+				oDiv.innerHTML+=txtArr[0];
+
+
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].className='';
+				}
+				aLi[num%aLi.length].className='active';
+
+				num++;
+				oNowCount.innerHTML=num;//当前文字字数
+
+				if(len==0){
+					clearInterval(timer);
+					aUl.style.display='none'
+
+				} 
+
+
+			}
+
+			function jindutiao(){//进度条的运动
+
+			}
+
+		};
+
+
+	</script>
+</head>
+<body>
+	<div class="box">
+		<textarea  id="left" ></textarea>
+
+		<div id="mid">
+			<div id="btn">文字右移</div>
+			<span>0</span>/<strong>0</strong>
+			<ul id"jindutiao">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+
+		<div id="right"></div>
+	</div>
+</body>
+</html>

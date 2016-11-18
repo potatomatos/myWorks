@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据操作+弹出层提示</title>
+
+    <style type="text/css">
+        body, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #content {
+            margin: 100px auto;
+            width: 1000px;
+        }
+
+        #header {
+            height: 35px;
+            border-bottom: 2px solid #EE7510
+        }
+
+        #header li {
+            float: left;
+            padding: 0 10px;
+            margin-right: 5px;
+            font-size: 20px;
+            line-height: 35px;
+            cursor: pointer;
+        }
+
+        #header .focus {
+            color: #fff;
+            background: #EE7510
+        }
+
+        #mianContent a {
+            display: block;
+            font: normal 16px/25px "宋体";
+            color: blue;
+            float: left;
+            clear: left;
+        }
+
+        #tips {
+            padding: 5px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 400px;
+            height: 200px;
+            border: 2px solid #FF7700;
+            background-color: white;
+            display: none;
+        }
+
+        #tips li {
+            width: 180px;
+            height: 30px;
+            float: left;
+            line-height: 30px;
+            border-bottom: 1px solid #CCC;
+            font-size: 11px;
+        }
+
+        #arrow {
+            position: absolute;
+            left: -11px;
+            top: 120px;
+            width: 11px;
+            height: 17px;
+            background: url("img/arrow.png") no-repeat;
+        }
+    </style>
+    <script type="text/javascript" src="data.js"></script>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            var header = document.getElementById('header');
+            var aLi = header.getElementsByTagName('li');
+            var contentList = document.getElementById('mianContent');
+
+            var tips = document.getElementById('tips');
+            var tipsContent = document.getElementById('tipsContent');
+            var tipsUl = tipsContent.getElementsByTagName('ul')[0];
+            for (var i = 0; i < data.length; i++) {
+                //添加标题内容
+                var liChile = document.createElement('li');
+                liChile.innerHTML = data[i].name;
+                header.appendChild(liChile);
+            }
+            //初始化内容列表
+            aLi[0].className = 'focus';
+            listInfo(data[0]);
+
+            for (var i = 0; i < aLi.length; i++) { //切换选项卡
+                aLi[i].index = i;
+                aLi[i].onclick = function () {
+                    for (var i = 0; i < aLi.length; i++) {
+                        aLi[i].className = '';
+                    }
+                    this.className = 'focus';
+
+                    listInfo(data[this.index]);
+                }
+            }
+
+            function listInfo(data) { //显示内容标题
+                contentList.innerHTML = "";
+
+                for (var i = 0; i < data.list.length; i++) { //显示标题
+                    var aA = document.createElement('a');
+                    aA.href = '#';
+                    aA.innerHTML = data.list[i].title;
+                    contentList.appendChild(aA);
+                }
+
+                for (var i = 0; i < contentList.children.length; i++) { //显示弹出框信息
+                    contentList.children[i].index = i;
+                    contentList.children[i].onmouseover = function () {
+
+                        tips.style.display = 'block';
+                        tipsUl.innerHTML = ""; //弹出框内容清空
+                        var p = getPos(this);
+                        tips.style.top = p.top - tips.clientHeight / 2 - 15 + 'px';
+                        tips.style.left = p.left + this.clientWidth + 10 + 'px';
+
+                        //显示弹出框的内容
+                        for (var attr in data.list[this.index]) {
+                            var tipsLi = document.createElement('li');
+
+                            tipsLi.innerHTML = data.list[this.index][attr];
+                            tipsUl.appendChild(tipsLi);
+                        }
+
+                    }
+
+                    contentList.children[i].onmouseout = function () {
+                        tips.style.display = 'none';
+
+                    }
+
+                }
+            }
+
+            function getPos(obj) { ///获取元素当前位置
+                var pos = {
+                    left: 0,
+                    top: 0
+                };
+
+                while (obj) {
+                    pos.left += obj.offsetLeft;
+                    pos.top += obj.offsetTop;
+                    obj = obj.offsetParent;
+                }
+
+                return pos;
+
+            }
+        };
+    </script>
+</head>
+
+<body>
+<div id="content">
+    <ul id="header">
+
+    </ul>
+
+    <div id="mianContent">
+
+    </div>
+
+</div>
+
+<div id="tips">
+    <span id="arrow"></span>
+
+    <div id="tipsContent">
+        <h2></h2>
+        <ul>
+
+        </ul>
+    </div>
+</div>
+</body>
+</html>
